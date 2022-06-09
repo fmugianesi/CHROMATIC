@@ -8,4 +8,22 @@ Overall, the CHROMATIC tool unifies factor occupancy and genome topology analyse
 
 # How to use
 
-## ChIP-seq date pre-processing
+## ChIP-seq data pre-processing
+
+### Transform the ChIP-seq peaks .bed file into .npy array
+Use the script '01_ChIpseq_peaks_fromBed_toNpy.py' contained in the subfolder './code/ChIPseq_prepro/' to generate .npy arrays from the .bed files of ChIP-seq peaks locations.  
+The input is a .bed file, one for each factor you study. See the input I used in the application in NPCs in the subfolder './data/NPC/ChIPseq/ChIPseq_peaks/bed/', where the format of the name of files is '(name-of-the-factor)_peaks_ucsc.bed'.  
+The ouput is one .npy array for every factor and every chromosome, saved in the subfolder './data/NPC/ChIPseq/ChIPseq_peaks/npy/'.  
+
+### From the .bedgraph files of ChIP-seq tracks obtain the .npy normalized array that later will be combined with Hi-C
+Use the script '02_ChIpseq_tracks_fromBedgraph_toNormalized.py' contained in the subfolder './code/ChIPseq_prepro/'.  
+The input is .bedgraph files, one for each factor you study. See the input I used in the application in NPCs in the subfolder './data/NPC/ChIPseq/ChIPseq_tracks/bedgraph/', where the format of the name of files is '(name-of-the-factor).bedgraph'.  
+This scripts involves several steps, where intermediate outputs are stored in the subfolder '.data/NPC/ChIPseq/ChIPseq_tracks/', in case the run gets interrupted and you don't want to start from the beginning. You can later delete these intermediate .npy arrays. DO NOT delete the final .npy arrays, saved in './data/NPC/ChIPseq/ChIPseq_tracks/', whose name ends with '_norm_01.npy'. They are the ChIP-seq tracks normalized in the range 0-1, which will be next combined with Hi-C.  
+
+### Optional: Plot the normalized ChIP-seq tracks in a region of interest
+Use the script '03_plot_normalizedChIPseqs.py' contained in the subfolder './code/ChIPseq_prepro/' to plot the normalized ChIP-seq tracks in a region of interest. The script is set to perform this plot on the HoxA locus of the mouse genome mm10.
+
+
+
+
+
