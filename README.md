@@ -32,9 +32,13 @@ Use the script '03_plot_normalizedChIPseqs.py' contained in the subfolder './cod
 ## Hi-C data pre-processing
 
 ### 4. Transform the intra-chromosomal Hi-C maps into .npz scipy sparse arrays
-Use the script '04_HiC_NPs_from_decay_to_decaymedian_chr1.py' contained in the subfolder './code/HiC_prepro/'. You may create a script like this one for each chromosome (good for speed), or uncomment one line as indicated in the code to perform the same script for all chromosomes (bad for speed).
-The input is the intra-chromosomal Hi-C map, in a sparse format. In our application, we work at 5kb resolution, the input map for chr1 is in the subfolder './data/NPC/HiC/abc/', and the name of the file is 'HiC_chr1_5kb.abc'. It is stored in a sparse, bed-like format, where each line describes the pair of interacting bins and their Hi-C value. Note that the bins are not indicated in base pairs, but the number of the bin is indicated. Thus, bin 0 stands for the region 0-4,999 bp, bin 1 represents the region 5,000-9,999 bp, and so on. A generic example of one line in the 'HiC_chr1_5kb.abc' file is: bin1 bin2 HiCvalue12.
-The script generates a .npz compressed array with scipy.sparse package, that optimizes storage and speed. We apply a median filter to the Hi-C map, to reduce noise and enhance CHROMATIC performance. The obtained map is stored in the subfolder './data/NPC/HiC/npz/' with the name 'HiC_chr1_median.npz'. Keep this file, since it will be combined with ChIP-seq in the next steps.
+Use the script '04_HiC_NPs_from_decay_to_decaymedian_chr1.py' contained in the subfolder './code/HiC_prepro/'. You may create a script like this one for each chromosome (good for speed), or uncomment one line as indicated in the code to perform the same script for all chromosomes (bad for speed).  
+The input is the intra-chromosomal Hi-C map, in a sparse format.  
+In our application, we work at 5kb resolution, the input map for chr1 is in the subfolder './data/NPC/HiC/abc/', and the name of the file is 'HiC_chr1_5kb.abc'.  
+It is stored in a sparse, bed-like format, where each line describes the pair of interacting bins and their Hi-C value. Note that the bins are not indicated in base pairs, but the number of the bin is indicated. Thus, bin 0 stands for the region 0-4,999 bp, bin 1 represents the region 5,000-9,999 bp, and so on. A generic example of one line in the 'HiC_chr1_5kb.abc' file is: bin1 bin2 HiCvalue12.  
+The script generates a .npz compressed array with scipy.sparse package, that optimizes storage and speed.  
+We apply a median filter to the Hi-C map, to reduce noise and enhance CHROMATIC performance.  
+The obtained map is stored in the subfolder './data/NPC/HiC/npz/' with the name 'HiC_chr1_median.npz'. Keep this file, since it will be combined with ChIP-seq in the next steps.
 
 ## CHROMATIC
 
