@@ -104,3 +104,26 @@ For each chromosome, the matrix of the detected interactions is loaded (e.g., 'C
 As described above, this is a binary matrix. Each label found in the matrix corresponds to a patch of detected interactions (e.g., a hub). The script computes the average of the CHROMATIC score in the pixels of the detection and stores this value in a numpy array, which is saved in './data/NPC/CHROMATIC/detections_analysis/' (see 'chromatic_score_CHROMATIC_peaks_Cbx3_chr1.npy' as an example).  
 
 
+## Latent Semantic Analysis to find types of 3D interactions
+
+### 11. Sum of the CHROMATIC detections made for all factors 
+Use the script '11_sum_Chromatic_NPs_peaks_allfactors.py' contained in the subfolder './code/4_LSA_3Dtypes/' to compute the matrix of the overlap of the CHROMATIC detections of all factors ("overlap-matrix").  
+This step is important for the subsequent ones, which will perform Latent Semantic Analysis (LSA) to identify types of 3D interactions.  
+The script processes all chromosome and all factors.  
+For each chromosome, a new matrix P_sum is produced, which is:  
+P_sum[i,j]=0, if the pixel [i,j] does not contain any detection made for any of the studied factors,  
+P_sum[i,j]=1, if the pixel [i,j] contains a detection for 1 factor,  
+P_sum[i,j]=2, if the pixel [i,j] contains a detection for 2 factors,  
+and so on.  
+This overlap-matrix is saved in './data/NPC/CHROMATIC/3Dtypes/' (with the name 'sum_CHROMATIC_peaks_allfactors_chr1.npz', for chromosome 1).
+
+### 12. Prepare the input for LSA
+Use the script '12_lsa_NPs_prepare_input_chr1.py' contained in the subfolder './code/4_LSA_3Dtypes/' to prepare the input that is needed for LSA.  
+The script processes all factors in chromosome 1.  
+You may create a script like this one for each chromosome (good for speed), or uncomment one line as indicated in the code to perform the same script for all chromosomes (bad for speed).    
+The input of the script is the matrix of the overlap of the CHROMATIC detections of all factors (saved in './data/NPC/CHROMATIC/3Dtypes/', with the name 'sum_CHROMATIC_peaks_allfactors_chr1.npz', for chromosome 1) and the CHROMATIC detections made for each factor (saved in './data/NPC/CHROMATIC/detections/', with the name 'Cbx3_chr1_CHROMATIC_peaks.npz' for CBX3 in chromosome 1).  
+The ouput is a pandas array (pd.Series), which has a row for each non-zero pixel of the overlap-matrix (corresponding to a detected interaction for one factor or more), where the row contains the name of the factors participating in that same interaction.  
+For example, if P_sum[i,j]=1 because factor CTCF has a detected interaction in the pixel [i,j], the corresponding line in the pandas array is 'CTCF'.  
+Otherwise, if P_sum[i,j]=2 because factors H3K27ac and SMC1 have a detected interaction in the pixel [i,j], the corresponding line in the pandas array is 'H3K27ac SMC1'.  
+In each rown we add an imaginary factor called "Apple", to make sure that the LSA output captures e
+Subsequently, having a total of N factors, we will compute N-1 3D-types with LSA. Each 3D-type is mainly enriched in one factor,
