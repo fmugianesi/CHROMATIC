@@ -125,5 +125,29 @@ The input of the script is the matrix of the overlap of the CHROMATIC detections
 The ouput is a pandas array (pd.Series), which has a row for each non-zero pixel of the overlap-matrix (corresponding to a detected interaction for one factor or more), where the row contains the name of the factors participating in that same interaction.  
 For example, if P_sum[i,j]=1 because factor CTCF has a detected interaction in the pixel [i,j], the corresponding line in the pandas array is 'CTCF'.  
 Otherwise, if P_sum[i,j]=2 because factors H3K27ac and SMC1 have a detected interaction in the pixel [i,j], the corresponding line in the pandas array is 'H3K27ac SMC1'.  
-In each rown we add an imaginary factor called "Apple", to make sure that the LSA output captures e
-Subsequently, having a total of N factors, we will compute N-1 3D-types with LSA. Each 3D-type is mainly enriched in one factor,
+The generated array is saved in './data/NPC/CHROMATIC/3Dtypes/' (with the name '3Dint-factor_lsa_chr1.npy', for chromosome 1).  
+
+### 13. Perform LSA to identify the types of 3D interactions
+Use the script '13_lsa_NPs.py' contained in the subfolder './code/4_LSA_3Dtypes/' to perform LSA genome-wide for all the studied factors.  
+The input of the script is the output of step no.12, performed for all chromosomes, saved in './data/NPC/CHROMATIC/3Dtypes/'.  
+The output is saved in './data/NPC/CHROMATIC/3Dtypes/' and is:  
+1. a compressed array describing to what 3D type each pixel with a detected CHROMATIC interaction belongs. Each pixel with a detected CHROMATIC interaction corresponds to a row, and the row contains its enrichment in the identified 3D type. Each pixel belongs to the 3D type for which corresponding to the maximum value of the row. It is saved as '3Dint-3Dtype_allchrs.npz'. 
+2. an array that defines the identified types of 3D interactions (3D types), based on specific combinations of the factors in 3D. 3D types correspond to rows and factors correspond columns. Thus, each row describes the composition of the 3D type in terms of enrichment (positive score) or depletion (negative score) of the factors. It is saved as '3Dtype-factor_allchrs.npy'.  
+The script also prints its computing time.  
+
+### 14. Count the number of pixels/3D interactions corresponding to each identified 3D type
+Use the script '14_count_3Dinteractions_per_3Dtype_NPs.py' contained in the subfolder './code/4_LSA_3Dtypes/' to count how many pixels correspond to each 3D type.  
+The input was obtained at step no.13.  
+The output is saved in './data/NPC/CHROMATIC/3Dtypes/' as '3Dtype_counter_allchrs.npy'. It is an array whose length is equal to the number of 3D types identified (which is N-1 and is the maximum number of 3D types that is possible to obtain with LSA, having N factors).  
+The script prints the total number of pixels (genome-wide) with a detected CHROMATIC interaction
+
+### 15. Get the 1D loci (on the linear chromatin) participating in the identified 3D types
+Use the script '15_generate_bedfile_NPs_3Dtype0.py' contained in the subfolder './code/4_LSA_3Dtypes/' to generate a .bed file of the 1D loci that interact in 3D through 3D type-0.  
+You may create a script like this one for each 3D type (good for speed), or uncomment one line as indicated in the code to perform the same script for all 3D types (bad for speed).  
+The input is:  
+1. one of the two output of step no.13, named '3Dint-3Dtype_allchrs.npz' and saved in './data/NPC/CHROMATIC/3Dtypes/'
+2. the overlap-matrix generated at step no.11 for each chromosome, saved in './data/NPC/CHROMATIC/3Dtypes/' (with the name 'sum_CHROMATIC_peaks_allfactors_chr1.npz', for chromosome 1).  
+The output is saved in './data/NPC/CHROMATIC/3Dtypes/' with the name '3Dtype_0_allchrs.bed' for 3D type-0. 
+
+
+
