@@ -8,12 +8,12 @@ Overall, the CHROMATIC tool unifies factor occupancy and genome topology analyse
 # System requirements
 CHROMATIC is made of a set of Python scripts and was tested on Python 2.7.16.  
 The required libraries are:  
-  Numpy 1.16.4. 
-  Pandas 0.24.2  
-  Seaborn 0.9.1  
-  Scipy 1.2.1  
-  Matplotlib 1.5.1  
-  Scikit-learn 0.20.3.  
+  * Numpy 1.16.4. 
+  * Pandas 0.24.2  
+  * Seaborn 0.9.1  
+  * Scipy 1.2.1  
+  * Matplotlib 1.5.1  
+  * Scikit-learn 0.20.3.  
 
 # Installation guide
 
