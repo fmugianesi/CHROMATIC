@@ -16,8 +16,12 @@ The required libraries are:
   * Scikit-learn 0.20.3.  
 
 # Installation guide
+Download or clone the repository on your computer.  
+At the beginning of all scripts, set the *path* variable as the path of the repository in your computer.
+Make sure that the repository contains two main subfolders: 'code' and 'data'. 
 
-# 
+# Typical install time 
+On a "normal" desktop computer, the typical install time is 
 
 # How to use
 
