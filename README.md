@@ -23,6 +23,7 @@ After unzipping *'data.tar.gz'*, make sure that the repository contains two main
 
 # Typical install time 
 On a "normal" desktop computer, the typical install time is ...
+The size of the *'data.tar.gz'* file is 3.75 GB
 
 # How to use
 
