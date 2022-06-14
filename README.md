@@ -1,8 +1,9 @@
 # CHROMATIC  
 CHROMATIC is a computational tool that integrates Hi-C and ChIP-seq data to study chromatin three-dimensional (3D) interactions associated with any factor of interest.   
 It is faster and less expensive than performing experiments that probe protein-directed genome architecture, such as HiChIP. 
-Thanks to the deconvolution of the Hi-C data into factor-specific interactions, our strategy allows discerning the role of each studied factor in genome 3D structure in a cell-type-specific manner.  
-Furthermore, the classification of 3D colocalization patterns of factors using CHROMATIC identifies types of functional 3D interactions, that we call ‘3D-types’. 3D-types may reflect already known interactions between different chromatin factors or may help discover new associations between molecules with specific functional roles.  
+Thanks to the deconvolution of the Hi-C data into factor-specific interactions, it allows discerning the role of each studied factor in genome 3D structure in a cell-type-specific manner.  
+Furthermore, the classification of 3D colocalization patterns of factors using CHROMATIC identifies types of functional 3D interactions (‘3D-types’).  
+3D-types may reflect already known interactions between different chromatin factors or may help discover new associations between molecules with specific functional roles.  
 Overall, the CHROMATIC tool unifies factor occupancy and genome topology analyses, to shed light on their link with gene expression. 
  
 # System requirements
@@ -41,7 +42,7 @@ In the case that you want to use another file name format, you need to modify th
 ### 1. Transform the ChIP-seq peaks .bed file into .npy array
 Use the script '01_ChIpseq_peaks_fromBed_toNpy.py' contained in the subfolder './code/0_ChIPseq_prepro/' to generate .npy arrays from the .bed files of ChIP-seq peaks locations.  
 The input is a .bed file, one for each factor you study. See the input I used in the application in NPCs in the subfolder './data/NPC/ChIPseq/ChIPseq_peaks/bed/', where the format of the name of files is '(name-of-the-factor)_peaks_ucsc.bed'.  
-The ouput is one .npy array for every factor and every chromosome, saved in the subfolder './data/NPC/ChIPseq/ChIPseq_peaks/npy/'. The generated file iss named e.g., 'Cbx3_peaks_chr1.npy'.
+The ouput is one .npy array for every factor and every chromosome, saved in the subfolder './data/NPC/ChIPseq/ChIPseq_peaks/npy/'. The generated file is named e.g., 'Cbx3_peaks_chr1.npy'.
 
 ### 2. From the .bedgraph files of ChIP-seq tracks obtain the .npy normalized array that later will be combined with Hi-C
 Use the script '02_ChIpseq_tracks_fromBedgraph_toNormalized.py' contained in the subfolder './code/0_ChIPseq_prepro/'.  
@@ -158,28 +159,28 @@ The generated array is saved in './data/NPC/CHROMATIC/3Dtypes/' (with the name '
 Use the script '13_lsa_NPs.py' contained in the subfolder './code/4_LSA_3Dtypes/' to perform LSA genome-wide for all the studied factors.  
 The input of the script is the output of step no.12, performed for all chromosomes, saved in './data/NPC/CHROMATIC/3Dtypes/'.  
 The output is saved in './data/NPC/CHROMATIC/3Dtypes/' and is:  
-1. a compressed array describing to what 3D type each pixel with a detected CHROMATIC interaction belongs. Each pixel with a detected CHROMATIC interaction corresponds to a row, and the row contains its enrichment in the identified 3D type. Each pixel belongs to the 3D type for which corresponding to the maximum value of the row. It is saved as '3Dint-3Dtype_allchrs.npz'. 
-2. an array that defines the identified types of 3D interactions (3D types), based on specific combinations of the factors in 3D. 3D types correspond to rows and factors correspond columns. Thus, each row describes the composition of the 3D type in terms of enrichment (positive score) or depletion (negative score) of the factors. It is saved as '3Dtype-factor_allchrs.npy'.  
+1. a compressed array describing to what 3D-type each pixel with a detected CHROMATIC interaction belongs. Each pixel with a detected CHROMATIC interaction corresponds to a row, and the row contains its enrichment in the identified 3D-type. Each pixel belongs to the 3D-type for which corresponding to the maximum value of the row. It is saved as '3Dint-3Dtype_allchrs.npz'. 
+2. an array that defines the identified types of 3D interactions (3D-types), based on specific combinations of the factors in 3D. 3D-types correspond to rows and factors correspond columns. Thus, each row describes the composition of the 3D-type in terms of enrichment (positive score) or depletion (negative score) of the factors. It is saved as '3Dtype-factor_allchrs.npy'.  
 The script also prints its computing time.  
 
-### 14. Plot the 3D types defined by LSA
-Use the script '14_plot_output_LSA_NPC.py' contained in the subfolder './code/4_LSA_3Dtypes/' to plot the heatmap that defines 3D types.  
+### 14. Plot the 3D-types defined by LSA
+Use the script '14_plot_output_LSA_NPC.py' contained in the subfolder './code/4_LSA_3Dtypes/' to plot the heatmap that defines 3D-types.  
 The input is the output of step no.13 '3Dtype-factor_allchrs.npy', saved in './data/NPC/CHROMATIC/3Dtypes/'.  
-The script generates a heatmap where each row corresponds to a 3D type, defined in terms of enrichment (in red) or depletion (in blue) of the factors.  
+The script generates a heatmap where each row corresponds to a 3D-type, defined in terms of enrichment (in red) or depletion (in blue) of the factors.  
 On top, colors express the functional role of factors. Adjust the palette according to the functional role of your factors.  
-Also, a dendogram done by unsupervised hierarchical clustering describes the association between factors based on the 3D types.  
+Also, a dendogram done by unsupervised hierarchical clustering describes the association between factors based on the 3D-types.  
 The plot is saved as .pdf in './data/NPC/CHROMATIC/3Dtypes/' as 'LSA_clusterheatmap_NPC.pdf'.
 
 
-### 15. Count the number of pixels/3D interactions corresponding to each identified 3D type
-Use the script '15_count_3Dinteractions_per_3Dtype_NPs.py' contained in the subfolder './code/4_LSA_3Dtypes/' to count how many pixels correspond to each 3D type.  
+### 15. Count the number of pixels/3D interactions corresponding to each identified 3D-type
+Use the script '15_count_3Dinteractions_per_3Dtype_NPs.py' contained in the subfolder './code/4_LSA_3Dtypes/' to count how many pixels correspond to each 3D-type.  
 The input was obtained at step no.13.  
-The output is saved in './data/NPC/CHROMATIC/3Dtypes/' as '3Dtype_counter_allchrs.npy'. It is an array whose length is equal to the number of 3D types identified (which is N-1 and is the maximum number of 3D types that is possible to obtain with LSA, having N factors).  
+The output is saved in './data/NPC/CHROMATIC/3Dtypes/' as '3Dtype_counter_allchrs.npy'. It is an array whose length is equal to the number of 3D-types identified (which is N-1 and is the maximum number of 3D-types that is possible to obtain with LSA, having N factors).  
 The script prints the total number of pixels (genome-wide) with a detected CHROMATIC interaction
 
-### 16. Get the 1D loci (on the linear chromatin) participating in the identified 3D types
+### 16. Get the 1D loci (on the linear chromatin) participating in the identified 3D-types
 Use the script '16_generate_bedfile_NPs_3Dtype0.py' contained in the subfolder './code/4_LSA_3Dtypes/' to generate a .bed file of the 1D loci that interact in 3D through 3D type-0.  
-You may create a script like this one for each 3D type (good for speed), or uncomment one line as indicated in the code to perform the same script for all 3D types (bad for speed).  
+You may create a script like this one for each 3D-type (good for speed), or uncomment one line as indicated in the code to perform the same script for all 3D-types (bad for speed).  
 The input is:  
 1. one of the two output of step no.13, named '3Dint-3Dtype_allchrs.npz' and saved in './data/NPC/CHROMATIC/3Dtypes/'
 2. the overlap-matrix generated at step no.11 for each chromosome, saved in './data/NPC/CHROMATIC/3Dtypes/' (with the name 'sum_CHROMATIC_peaks_allfactors_chr1.npz', for chromosome 1).  
@@ -187,46 +188,46 @@ The output is saved in './data/NPC/CHROMATIC/3Dtypes/' with the name '3Dtype_0_a
 
 
 ##  Identify the major types of 3D interaction
-In order to better capture the biological meaning of 3D types, we mapped 3D types into lists of 1D loci (as in step no.16) and measured their overlap with the functional genomic features of active enhancers (AE), active promoters (AP), poised enhancers (PE), bivalent promoters (BP), super-enhancers (SE), and constitutive LADs (CL). 
+In order to better capture the biological meaning of 3D-types, we mapped 3D-types into lists of 1D loci (as in step no.16) and measured their overlap with the functional genomic features of active enhancers (AE), active promoters (AP), poised enhancers (PE), bivalent promoters (BP), super-enhancers (SE), and constitutive LADs (CL). 
 This overlap was measured with the command *intersect -v* from the BEDTools toolkit (Quinlan and Hall, 2010).  
-As an example, you can find our data of the overlap between '3Dtype_0_allchrs.bed' and AE in the subfolder './data/NPC/CHROMATIC/major3Dtypes/' with the name '3Dtype0_AE_overlap.bed'. We counted the number of entries in this file and we repeated the same for all 3D types, and for AP, PE, BP, SE, and CL.  
-Then, we used the following scripts to compute the Log of the Odds Ratio of each overlap, use this data as input for Principal Component Analysis and K-means unsupervised clustering, in order to find the major types of 3D interactions, given by clusters of the previously identified 3D types.  
+As an example, you can find our data of the overlap between '3Dtype_0_allchrs.bed' and AE in the subfolder './data/NPC/CHROMATIC/major3Dtypes/' with the name '3Dtype0_AE_overlap.bed'. We counted the number of entries in this file and we repeated the same for all 3D-types, and for AP, PE, BP, SE, and CL.  
+Then, we used the following scripts to compute the Log of the Odds Ratio of each overlap, use this data as input for Principal Component Analysis and K-means unsupervised clustering, in order to find the major types of 3D interactions, given by clusters of the previously identified 3D-types.  
 You can follow this process or you can modify it to include other functional genomic features in your classification (beyond AE, AP, etc.).  
 
-### 17. Clustering of 3D types into major 3D types  
-Use the script '17_from3Dtypes_to_major3Dtypes.py' contained in the subfolder './code/5_major3Dtypes/' to obtain the clusters of 3D types corresponding to the major 3D types.  
-Prepare the input of the overlap of functional genomic features with 3D types as described above.  
+### 17. Clustering of 3D-types into major 3D-types  
+Use the script '17_from3Dtypes_to_major3Dtypes.py' contained in the subfolder './code/5_major3Dtypes/' to obtain the clusters of 3D-types corresponding to the major 3D-types.  
+Prepare the input of the overlap of functional genomic features with 3D-types as described above.  
 In the part of the script of PCA, follow the comments to choose the number of PCs that explain at least the 80% of the total variance. In our application case in NPC, we set *PCA(n_components=3)* because the first 3 PCs explained the 90.88% of the total variance. Then, PCA is performed with the chosen number of components and the obtained data is used for K-means clustering.  
-To determine the number of clusters to compute, the K-means algorithm is run multiple times with a different number of clusters (from 1 to 17 in NPC, where 17 3D types were classified). For each solution, the Within Cluster Sum of Squares (WCSS) is computed. To determine the number of clusters to use, we use the approach known as the Elbow method, which consists of looking for a kink or elbow in the plot of the values of WCSS against the number of clusters (which is produced by the script in the part of K-means, and saved in './data/NPC/CHROMATIC/major3Dtypes/' as 'kink_NPC.pdf'). The elbow point is identified by the different exponential of the descent on the left and the right of the plot. In our application in NPC, the elbow appeared in correspondence with 4 clusters of major types of interactions, so we do *KMeans(n_clusters=4)*.  
-Finally, the script plots the identified clusters of 3D types on the PC1 and PC2. Even though it is not included in this script, we could associate the 4 major 3D types with their functional outcome, by studying:  
+To determine the number of clusters to compute, the K-means algorithm is run multiple times with a different number of clusters (from 1 to 17 in NPC, where 17 3D-types were classified). For each solution, the Within Cluster Sum of Squares (WCSS) is computed. To determine the number of clusters to use, we use the approach known as the Elbow method, which consists of looking for a kink or elbow in the plot of the values of WCSS against the number of clusters (which is produced by the script in the part of K-means, and saved in './data/NPC/CHROMATIC/major3Dtypes/' as 'kink_NPC.pdf'). The elbow point is identified by the different exponential of the descent on the left and the right of the plot. In our application in NPC, the elbow appeared in correspondence with 4 clusters of major types of interactions, so we do *KMeans(n_clusters=4)*.  
+Finally, the script plots the identified clusters of 3D-types on the PC1 and PC2. Even though it is not included in this script, we could associate the 4 major 3D-types with their functional outcome, by studying:  
 1. their enrichment/depletion in AE, AP, PE, BP, SE, CL
 2. looking at their corresponding genes, the proportion of genes that are highly-, lowly-expressed or silent
 3. the proportion of their overlap with A/B compartments.  
-Thanks to this, we called the obtained 4 major 3D types as Active, Neuronal TFs, PcG-Bivalent and Inactive, as it appears in the final plot generated by the script '17_from3Dtypes_to_major3Dtypes.py', saved in './data/NPC/CHROMATIC/major3Dtypes/' as 'PCA_NPC.pdf'. You can modify names, colors and other parameters according to your findings.  
+Thanks to this, we called the obtained 4 major 3D-types as Active, Neuronal TFs, PcG-Bivalent and Inactive, as it appears in the final plot generated by the script '17_from3Dtypes_to_major3Dtypes.py', saved in './data/NPC/CHROMATIC/major3Dtypes/' as 'PCA_NPC.pdf'. You can modify names, colors and other parameters according to your findings.  
 
-### 18. Count pixels associated with the major 3D types and annotate the contact maps with the major 3D types
-Use the script '18_annotate_pixels_major3Dtypes_NP.py' contained in the subfolder './code/5_major3Dtypes/' to count the number of pixels classified in each major 3D type and annotate the contact maps with the major 3D types.
+### 18. Count pixels associated with the major 3D-types and annotate the contact maps with the major 3D-types
+Use the script '18_annotate_pixels_major3Dtypes_NP.py' contained in the subfolder './code/5_major3Dtypes/' to count the number of pixels classified in each major 3D-type and annotate the contact maps with the major 3D-types.
 The input is:  
 1. one of the two output of step no.13, named '3Dint-3Dtype_allchrs.npz' and saved in './data/NPC/CHROMATIC/3Dtypes/'
 2. the overlap-matrix generated at step no.11 for each chromosome, saved in './data/NPC/CHROMATIC/3Dtypes/' (with the name 'sum_CHROMATIC_peaks_allfactors_chr1.npz', for chromosome 1).  
-In our application to NPC, we found that the optimal number of clusters (major 3D types) is 4, thus in the script we set *n_clu = 4*. Change this parameter according to the number of clusters you identified.  
-Also, change the parameters relative to which 3D types compose every major 3D type according to your findings.  
+In our application to NPC, we found that the optimal number of clusters (major 3D-types) is 4, thus in the script we set *n_clu = 4*. Change this parameter according to the number of clusters you identified.  
+Also, change the parameters relative to which 3D-types compose every major 3D-type according to your findings.  
 The output is:  
-1. a compressed array for each chromosome, representing intra-chromosomal contact maps annotating the identified major 3D types, saved in './data/NPC/CHROMATIC/major3Dtypes/' (with the name 'painted_hicmap_major3Dtypes_chr1.npz' for chromosome 1). In this folder you can find an example of it, for our application in NPC. Since in NPC we have 4 major clusters, the generated map can assume value 0, 1, 2, 3, 4, where each value corresponds to a different classification: 0:unclassified, 1:nTFs, 2:Inactive, 3:Active, 4:PcG-Bivalent. See step no.20 for more details about this map. 
-2. a numpy array that describes the number of pixels associated to each 3D type, saved in './data/NPC/CHROMATIC/major3Dtypes/' as 'counter_pixels_major3Dtypes_NP.npy'.  
+1. a compressed array for each chromosome, representing intra-chromosomal contact maps annotating the identified major 3D-types, saved in './data/NPC/CHROMATIC/major3Dtypes/' (with the name 'painted_hicmap_major3Dtypes_chr1.npz' for chromosome 1). In this folder you can find an example of it, for our application in NPC. Since in NPC we have 4 major clusters, the generated map can assume value 0, 1, 2, 3, 4, where each value corresponds to a different classification: 0:unclassified, 1:nTFs, 2:Inactive, 3:Active, 4:PcG-Bivalent. See step no.20 for more details about this map. 
+2. a numpy array that describes the number of pixels associated to each 3D-type, saved in './data/NPC/CHROMATIC/major3Dtypes/' as 'counter_pixels_major3Dtypes_NP.npy'.  
 The script also prints the total number of classified pixels genome-wide. 
 
-### 19. Optional: Pie-chart of the major 3D types
-Use the script '19_plot_major3Dtypes_piechart.py' contained in the subfolder './code/5_major3Dtypes/' to plot with a pie-chart the number of pixels associated with the major 3D types.  
+### 19. Optional: Pie-chart of the major 3D-types
+Use the script '19_plot_major3Dtypes_piechart.py' contained in the subfolder './code/5_major3Dtypes/' to plot with a pie-chart the number of pixels associated with the major 3D-types.  
 The input is the output of step no.18, saved in './data/NPC/CHROMATIC/major3Dtypes/' as 'counter_pixels_major3Dtypes_NP.npy'.  
 The plot is saved in './data/NPC/CHROMATIC/major3Dtypes/' as 'piechart_major3Dtypes_NPC.pdf'.
 
-### 20. Optional: Paint the contact maps with the major 3D types
-To look at specific loci, you can use the script '20_paint_hicmap_major3Dtypes_NP.py' contained in the subfolder './code/5_major3Dtypes/' to "paint" your contact maps with the classified major 3D types, each one with a different color.  
-The input is the intra-chromosomal contact maps annotating the identified major 3D types generated in step no.18, saved in './data/NPC/CHROMATIC/major3Dtypes/'.  
-In the script we plot the major 3D types in the region chr18:53800000-56600000 containing the gene Zfp608. Thus, the input map is 'painted_hicmap_major3Dtypes_chr18.npz'. You run this script for several different regions as indicated in the comments.   
-The script is currently designed to plot 4 major 3D types, so, if you have a different number of major 3D types, you have to modify some parameters, such as the colormap and *vmax* in the *imshow* command.  
-The output is saved in './data/NPC/CHROMATIC/major3Dtypes/' as 'painted_hicmap_Zfp608.png', plotting the 3D interactions that were classified in different major 3D typess with different colors. The white background is set to transparent to allow you to overlap this map with the original Hi-C map, and discern which Hi-C interactions have finally been classified.  
+### 20. Optional: Paint the contact maps with the major 3D-types
+To look at specific loci, you can use the script '20_paint_hicmap_major3Dtypes_NP.py' contained in the subfolder './code/5_major3Dtypes/' to "paint" your contact maps with the classified major 3D-types, each one with a different color.  
+The input is the intra-chromosomal contact maps annotating the identified major 3D-types generated in step no.18, saved in './data/NPC/CHROMATIC/major3Dtypes/'.  
+In the script we plot the major 3D-types in the region chr18:53800000-56600000 containing the gene Zfp608. Thus, the input map is 'painted_hicmap_major3Dtypes_chr18.npz'. You run this script for several different regions as indicated in the comments.   
+The script is currently designed to plot 4 major 3D-types, so, if you have a different number of major 3D-types, you have to modify some parameters, such as the colormap and *vmax* in the *imshow* command.  
+The output is saved in './data/NPC/CHROMATIC/major3Dtypes/' as 'painted_hicmap_Zfp608.png', plotting the 3D interactions that were classified in different major 3D-types with different colors. The white background is set to transparent to allow you to overlap this map with the original Hi-C map, and discern which Hi-C interactions have finally been classified.  
 
 
 
