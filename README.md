@@ -135,14 +135,23 @@ The output is saved in './data/NPC/CHROMATIC/3Dtypes/' and is:
 2. an array that defines the identified types of 3D interactions (3D types), based on specific combinations of the factors in 3D. 3D types correspond to rows and factors correspond columns. Thus, each row describes the composition of the 3D type in terms of enrichment (positive score) or depletion (negative score) of the factors. It is saved as '3Dtype-factor_allchrs.npy'.  
 The script also prints its computing time.  
 
-### 14. Count the number of pixels/3D interactions corresponding to each identified 3D type
-Use the script '14_count_3Dinteractions_per_3Dtype_NPs.py' contained in the subfolder './code/4_LSA_3Dtypes/' to count how many pixels correspond to each 3D type.  
+### 14. Plot the 3D types defined by LSA
+Use the script '14_plot_output_LSA_NPC.py' contained in the subfolder './code/4_LSA_3Dtypes/' to plot the heatmap that defines 3D types.  
+The input is the output of step no.13 '3Dtype-factor_allchrs.npy', saved in './data/NPC/CHROMATIC/3Dtypes/'.  
+The script generates a heatmap where each row corresponds to a 3D type, defined in terms of enrichment (in red) or depletion (in blue) of the factors.  
+On top, colors express the functional role of factors. Adjust the palette according to the functional role of your factors.  
+Also, a dendogram done by unsupervised hierarchical clustering describes the association between factors based on the 3D types.  
+The plot is saved as .pdf in './data/NPC/CHROMATIC/3Dtypes/' as 'LSA_clusterheatmap_NPC.pdf'.
+
+
+### 15. Count the number of pixels/3D interactions corresponding to each identified 3D type
+Use the script '15_count_3Dinteractions_per_3Dtype_NPs.py' contained in the subfolder './code/4_LSA_3Dtypes/' to count how many pixels correspond to each 3D type.  
 The input was obtained at step no.13.  
 The output is saved in './data/NPC/CHROMATIC/3Dtypes/' as '3Dtype_counter_allchrs.npy'. It is an array whose length is equal to the number of 3D types identified (which is N-1 and is the maximum number of 3D types that is possible to obtain with LSA, having N factors).  
 The script prints the total number of pixels (genome-wide) with a detected CHROMATIC interaction
 
-### 15. Get the 1D loci (on the linear chromatin) participating in the identified 3D types
-Use the script '15_generate_bedfile_NPs_3Dtype0.py' contained in the subfolder './code/4_LSA_3Dtypes/' to generate a .bed file of the 1D loci that interact in 3D through 3D type-0.  
+### 16. Get the 1D loci (on the linear chromatin) participating in the identified 3D types
+Use the script '16_generate_bedfile_NPs_3Dtype0.py' contained in the subfolder './code/4_LSA_3Dtypes/' to generate a .bed file of the 1D loci that interact in 3D through 3D type-0.  
 You may create a script like this one for each 3D type (good for speed), or uncomment one line as indicated in the code to perform the same script for all 3D types (bad for speed).  
 The input is:  
 1. one of the two output of step no.13, named '3Dint-3Dtype_allchrs.npz' and saved in './data/NPC/CHROMATIC/3Dtypes/'
