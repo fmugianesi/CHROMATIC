@@ -159,4 +159,6 @@ The input is:
 The output is saved in './data/NPC/CHROMATIC/3Dtypes/' with the name '3Dtype_0_allchrs.bed' for 3D type-0. 
 
 
-
+## Identify the major types of 3D interaction
+In order to better capture the biological meaning of 3D types, we mapped 3D types into lists of 1D loci (as in step no.16) and measured their overlap with active enhancers (AE), active promoters (AP), poised enhancers (PE), bivalent promoters (BP), super-enhancers (SE), and constitutive LADs (CL). This overlap was measured with the command *intersect -v* from the BEDTools toolkit [Quinlan, A.R. & Hall, I.M. BEDTools: a flexible suite of utilities for comparing genomic features. Bioinformatics 26, 841-2 (2010)]
+ 
