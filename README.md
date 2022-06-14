@@ -29,7 +29,8 @@ On a "normal" desktop computer, the typical install time is ...
 This tutorial explains the code, while referring to the data relative to the application of CHROMATIC in NPCs.  
 You will find the ChIP-seq data for all the factors we studied at present.  
 As regards Hi-C maps and downstream CHROMATIC analysis, you will find only the data for chromosome 1 and the factor CBX3.  
-However, we uploaded also the data that define the 3D-types that we identified genome-wide, as explained below.
+However, we uploaded also the data that define the 3D-types that we identified genome-wide, as explained below.  
+There are 20 scripts, but you do not have to necessarily run all of them. Some of them are optional and you can choose which ones to use on the basis of your needs.
 
 ## ChIP-seq data pre-processing
 
