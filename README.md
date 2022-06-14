@@ -18,10 +18,10 @@ The required libraries are:
 # Installation guide
 Download or clone the repository on your computer.  
 At the beginning of all scripts, set the *path* variable as the path of the repository in your computer.
-Make sure that the repository contains two main subfolders: 'code' and 'data'. 
+After unzipping 'data.tar.gz', make sure that the repository contains two main subfolders: 'code' and 'data'. 
 
 # Typical install time 
-On a "normal" desktop computer, the typical install time is 
+On a "normal" desktop computer, the typical install time is ...
 
 # How to use
 
@@ -32,6 +32,12 @@ However, we uploaded also the data that define the 3D-types that we identified g
 
 ## ChIP-seq data pre-processing
 
+To use the following scripts, ChIP-seq tracks of factors must be named as indicated in steps no.1 and no.2.  
+Examples of *name-of-the-factor*: CTCF, Suz12.  
+Examples of *name-of-the-study*: Bonev17, Kloet16.  
+When we say that the name of a file is '(name-of-the-factor)_(name-of-the-study).bedgraph', it can be 'CTCF_Bonev17.bedgraph' or 'Suz12_Kloet16.bedgraph'.  This scripts are designed to use a ChIP-seq control. The "study" identifies the ChIP-seq tracks that can be normalized with the same control. For example, in our application case, the control for CTCF is 'Input_Bonev17.bedgraph' and the one for SUZ12 is 'Input_Kloet16.bedgraph'.  
+In the case that you want to use another file name format, you need to modify the scripts to still normalize the ChIP-seq tracks with the correct input. 
+
 ### 1. Transform the ChIP-seq peaks .bed file into .npy array
 Use the script '01_ChIpseq_peaks_fromBed_toNpy.py' contained in the subfolder './code/0_ChIPseq_prepro/' to generate .npy arrays from the .bed files of ChIP-seq peaks locations.  
 The input is a .bed file, one for each factor you study. See the input I used in the application in NPCs in the subfolder './data/NPC/ChIPseq/ChIPseq_peaks/bed/', where the format of the name of files is '(name-of-the-factor)_peaks_ucsc.bed'.  
@@ -39,7 +45,10 @@ The ouput is one .npy array for every factor and every chromosome, saved in the 
 
 ### 2. From the .bedgraph files of ChIP-seq tracks obtain the .npy normalized array that later will be combined with Hi-C
 Use the script '02_ChIpseq_tracks_fromBedgraph_toNormalized.py' contained in the subfolder './code/0_ChIPseq_prepro/'.  
-The input is .bedgraph files, one for each factor you study. See the input I used in the application in NPCs in the subfolder './data/NPC/ChIPseq/ChIPseq_tracks/bedgraph/', where the format of the name of files is '(name-of-the-factor).bedgraph'.  
+The input is .bedgraph files, one for each factor you study. See the input I used in the application in NPCs in the subfolder './data/NPC/ChIPseq/ChIPseq_tracks/bedgraph/', where the format of the name of files is '(name-of-the-factor)_(name-of-the-study).bedgraph'.  
+For each study, there must be an array indicating the factors that will be normalized with the same control, with at the end the name of the control. As an example:  
+Bonev17 = ['CTCF_Bonev17', 'H3K27ac_Bonev17', 'H3K27me3_Bonev17', 'H3K4me3_Bonev17', 'H3K9me3_Bonev17', 'Ring1b_Bonev17', 'Input_Bonev17']  
+                     
 This scripts involves several steps, where intermediate outputs are stored in the subfolder '.data/NPC/ChIPseq/ChIPseq_tracks/', in case the run gets interrupted and you don't want to start from the beginning. You can later delete these intermediate .npy arrays. DO NOT delete the final .npy arrays, saved in './data/NPC/ChIPseq/ChIPseq_tracks/', whose name ends with '_norm_01.npy'. They are the ChIP-seq tracks normalized in the range 0-1, which will be next combined with Hi-C.  
 In the subfolder './data/NPC/ChIPseq/ChIPseq_tracks/' you can find the final data I obtained in the application of CHROMATIC to 18 factors in NPCs.
 
