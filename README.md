@@ -185,7 +185,7 @@ The input is:
 In our application to NPC, we found that the optimal number of clusters (major 3D types) is 4, thus in the script we set *n_clu = 4*. Change this parameter according to the number of clusters you identified.  
 Also, change the parameters relative to which 3D types compose every major 3D type according to your findings.  
 The output is:  
-1. a compressed array for each chromosome, representing intra-chromosomal contact maps annotating the identified major 3D types, saved in './data/NPC/CHROMATIC/major3Dtypes/' (with the name 'painted_hicmap_major3Dtypes_chr1.npz' for chromosome 1). In this folder you can find an example of it, for our application in NPC. See step no.20 for more details about this map. 
+1. a compressed array for each chromosome, representing intra-chromosomal contact maps annotating the identified major 3D types, saved in './data/NPC/CHROMATIC/major3Dtypes/' (with the name 'painted_hicmap_major3Dtypes_chr1.npz' for chromosome 1). In this folder you can find an example of it, for our application in NPC. Since in NPC we have 4 major clusters, the generated map can assume value 0, 1, 2, 3, 4, where each value corresponds to a different classification: 0:unclassified, 1:nTFs, 2:Inactive, 3:Active, 4:PcG-Bivalent. See step no.20 for more details about this map. 
 2. a numpy array that describes the number of pixels associated to each 3D type, saved in './data/NPC/CHROMATIC/major3Dtypes/' as 'counter_pixels_major3Dtypes_NP.npy'.  
 The script also prints the total number of classified pixels genome-wide. 
 
@@ -195,7 +195,13 @@ The input is the output of step no.18, saved in './data/NPC/CHROMATIC/major3Dtyp
 The plot is saved in './data/NPC/CHROMATIC/major3Dtypes/' as 'piechart_major3Dtypes_NPC.pdf'.
 
 ### 20. Optional: Paint the contact maps with the major 3D types
-To look at specific loci, you need to "paint" your contact maps with the classified major 3D types. For this purpose, use the script '20_paint_hicmap_major3Dtypes_NP.py' contained in the subfolder './code/5_major3Dtypes/'.  
+To look at specific loci, you can use the script '20_paint_hicmap_major3Dtypes_NP.py' contained in the subfolder './code/5_major3Dtypes/' to "paint" your contact maps with the classified major 3D types, each one with a different color.  
+The input is the intra-chromosomal contact maps annotating the identified major 3D types generated in step no.18, saved in './data/NPC/CHROMATIC/major3Dtypes/'.  
+In the script we plot the major 3D types in the region chr18:53800000-56600000 containing the gene Zfp608. Thus, the input map is 'painted_hicmap_major3Dtypes_chr18.npz'. You run this script for several different regions as indicated in the comments.   
+The script is currently designed to plot 4 major 3D types, so, if you have a different number of major 3D types, you have to modify some parameters, such as the colormap and *vmax* in the *imshow* command.  
+The output is saved in './data/NPC/CHROMATIC/major3Dtypes/' as 'painted_hicmap_Zfp608.png', plotting the 3D interactions that were classified in different major 3D typess with different colors. The white background is set to transparent to allow you to overlap this map with the original Hi-C map, and discern which Hi-C interactions have finally been classified.  
+
+
 
 
 
