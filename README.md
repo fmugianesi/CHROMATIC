@@ -5,6 +5,19 @@ Thanks to the deconvolution of the Hi-C data into factor-specific interactions, 
 Furthermore, the classification of 3D colocalization patterns of factors using CHROMATIC identifies types of functional 3D interactions, that we call ‘3D-types’. 3D-types may reflect already known interactions between different chromatin factors or may help discover new associations between molecules with specific functional roles.  
 Overall, the CHROMATIC tool unifies factor occupancy and genome topology analyses, to shed light on their link with gene expression. 
  
+# System requirements
+CHROMATIC is made of a set of Python scripts and was tested on Python 2.7.16.  
+The required libraries are:  
+  Numpy 1.16.4. 
+  Pandas 0.24.2  
+  Seaborn 0.9.1  
+  Scipy 1.2.1  
+  Matplotlib 1.5.1  
+  Scikit-learn 0.20.3.  
+
+# Installation guide
+
+# 
 
 # How to use
 
@@ -161,7 +174,7 @@ The output is saved in './data/NPC/CHROMATIC/3Dtypes/' with the name '3Dtype_0_a
 
 ##  Identify the major types of 3D interaction
 In order to better capture the biological meaning of 3D types, we mapped 3D types into lists of 1D loci (as in step no.16) and measured their overlap with the functional genomic features of active enhancers (AE), active promoters (AP), poised enhancers (PE), bivalent promoters (BP), super-enhancers (SE), and constitutive LADs (CL). 
-This overlap was measured with the command *intersect -v* from the BEDTools toolkit (Quinlan, A.R. & Hall, I.M. BEDTools: a flexible suite of utilities for comparing genomic features. Bioinformatics 26, 841-2 (2010)).  
+This overlap was measured with the command *intersect -v* from the BEDTools toolkit (Quinlan and Hall, 2010).  
 As an example, you can find our data of the overlap between '3Dtype_0_allchrs.bed' and AE in the subfolder './data/NPC/CHROMATIC/major3Dtypes/' with the name '3Dtype0_AE_overlap.bed'. We counted the number of entries in this file and we repeated the same for all 3D types, and for AP, PE, BP, SE, and CL.  
 Then, we used the following scripts to compute the Log of the Odds Ratio of each overlap, use this data as input for Principal Component Analysis and K-means unsupervised clustering, in order to find the major types of 3D interactions, given by clusters of the previously identified 3D types.  
 You can follow this process or you can modify it to include other functional genomic features in your classification (beyond AE, AP, etc.).  
