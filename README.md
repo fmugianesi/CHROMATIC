@@ -15,7 +15,7 @@ The required libraries are:
   * Scikit-learn 0.20.3.  
 
 # Installation guide
-Download or clone the repository on your computer together with downloading the [datasets](http://sgt.cnag.cat/3dg/datasets/files/20220601_Mugianesi_etal_CHROMATIC_Data.tar.gz) needed to run this tutorial. At the beginning of all scripts, set the *path* variable as the path of the repository in your computer. After unzipping *'data.tar.gz'*, make sure that the repository contains two main subfolders: *'code'* and *'data'*. 
+[Download](https://github.com/fmugianesi/CHROMATIC/archive/refs/heads/main.zip) or clone the repository on your computer together with downloading the [datasets](http://sgt.cnag.cat/3dg/datasets/files/20220601_Mugianesi_etal_CHROMATIC_Data.tar.gz) needed to run this tutorial. At the beginning of all scripts, set the *path* variable as the path of the repository in your computer. After unzipping *'data.tar.gz'*, make sure that the repository contains two main subfolders: *'code'* and *'data'*. 
 
 # Typical install time 
 The download time of the CHROMATIC repository (only code, without data) is about a few seconds. The size of the *'data.tar.gz'* file is 3.75 GB. On a "normal" desktop computer, its download time is about 7 minutes and its uncompression time is about 2 minutes and 30 seconds.
