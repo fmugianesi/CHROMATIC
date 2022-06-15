@@ -19,10 +19,11 @@ The required libraries are:
 # Installation guide
 Download or clone the repository on your computer.  
 At the beginning of all scripts, set the *path* variable as the path of the repository in your computer.
-After unzipping *'data.tar.gz'*, make sure that the repository contains two main subfolders: *'code'* and *'data'*. 
+Download the *'data.tar.gz'* archive, containing the data we use in the *"How to use"* section below, from this link https://crgcnag-my.sharepoint.com/:u:/g/personal/fmugianesi_crg_es/EebwJGk3FoZNliAhGoWtg0cBcmPBS3t5jLFFASFivsczEQ?e=0L9ccV .  
+After unzipping *'data.tar.gz'*, make sure that the CHROMATIC folder contains two main subfolders: *'code'* and *'data'*. 
 
-# Typical install time 
-The download time of the CHROMATIC repository (only code, without data) is about a few seconds.
+### Typical install time 
+The download time of the CHROMATIC repository (only code, without data) is about a few seconds.  
 The size of the *'data.tar.gz'* file is 3.75 GB. On a "normal" desktop computer, its download time is about 7 minutes and its uncompression time is about 2 minutes and 30 seconds.
 
 
