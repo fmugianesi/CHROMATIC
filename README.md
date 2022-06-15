@@ -22,8 +22,10 @@ At the beginning of all scripts, set the *path* variable as the path of the repo
 After unzipping *'data.tar.gz'*, make sure that the repository contains two main subfolders: *'code'* and *'data'*. 
 
 # Typical install time 
-On a "normal" desktop computer, the typical install time is 
-The size of the *'data.tar.gz'* file is 3.75 GB and its uncompression take about 2m 30s.
+The download time of the CHROMATIC repository (only code, without data) is about a few seconds.
+The size of the *'data.tar.gz'* file is 3.75 GB. On a "normal" desktop computer, its download time is about 7 minutes and its uncompression time is about 2 minutes and 30 seconds.
+
+
 
 # How to use
 
